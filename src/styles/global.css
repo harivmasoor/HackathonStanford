@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'inc-sans';
+    src: url('../../Inclusive_Sans/InclusiveSans-Regular.ttf');
+}
+@font-face {
+    font-family: 'inc-sans-italic';
+    src: url('../../Inclusive_Sans/InclusiveSans-Italic.ttf');
+}
+
+:root {
+
+    --blue: #004aad;
+    --light-blue: rgba(0, 74, 173, 0.5);
+    --orange: #F6861E;
+    --light-orange: rgba(246, 134, 30, 0.5);
+
+
+    --light_light_light_grey: #f7f7f7; 
+    --light_light_grey: #EBEBEB; 
+    --light_grey: #dddddd;
+    --dark_grey: #222222;
+    --coal: #282424;
+
+    --shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+    --strong_shadow: rgba(0, 0, 0, 0.22) 0px 6px 16px;
+
+
+}
+
+body {
+    font-family: 'inc-sans';
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+
+h1 {
+    font-family: 'inc-sans';
+    font-size: 2rem;
+}
+
+h2 {
+    font-family: 'inc-sans';
+    line-height: 1.6;
+}
+
+.subheader {
+    font-family: 'inc-sans-italic';
+}
+
+button {
+    font-family: 'inc-sans-italic';
+    background-color: white;
+    font-size: 1.6rem;
+    border: 1px solid #cccc;
+    border-radius: 0.4em;
+    padding: 1rem;
+    background-color: var(--light-orange);
+    /* color: var(--orange); */
+    color: black;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+input {
+    font-family: 'inc-sans-italic';
+    background-color: var(--light-blue);
+    color: var(--blue);
+    font-size: 1.6rem;
+    border: 1px solid black;
+    border-radius: 0.4em;
+    padding: 1rem;
+}
+
+input:hover {
+    cursor: pointer;
+}
