@@ -19,7 +19,17 @@
     <button onclick="processDocument()">Process Document</button>
 
     <h2>Document Processing Result:</h2>
-    <pre id="documentResult"></pre>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="documentFields">
+            <!-- Rows will be added dynamically here -->
+        </tbody>
+    </table>
 
     <script>
         let isRecording = false;
@@ -110,22 +120,17 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => {
-                if (response.headers.get('Content-Type').includes('application/json')) {
-                    return response.json();
-                } else {
-                    return response.text().then(text => {
-                        throw new Error(text);
-                    });
-                }
-            })
+            .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    console.log('Document processed successfully.');
-                    document.getElementById('documentResult').textContent = data.result;
-                } else {
-                    console.error('Error:', data.reason);
-                    alert('Failed to process document. Please check the console for details.');
+                const tableBody = document.getElementById('documentFields');
+                tableBody.innerHTML = ''; // Clear previous results
+
+                for (const field in data) {
+                    const row = tableBody.insertRow();
+                    const cell1 = row.insertCell(0);
+                    const cell2 = row.insertCell(1);
+                    cell1.textContent = field;
+                    cell2.textContent = data[field];
                 }
             })
             .catch(error => {
@@ -136,5 +141,3 @@
     </script>
 </body>
 </html>
-
-

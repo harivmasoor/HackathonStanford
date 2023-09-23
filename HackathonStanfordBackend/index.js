@@ -1,29 +1,23 @@
-
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-const querystring = require('querystring');  // Add this line for the new functionality
+const querystring = require('querystring');
 const openai = require('openai');
 const fileUpload = require('express-fileupload');
 const FormData = require('form-data');
-// const expressWs = require('express-ws'); 
 
 if(process.env.NODE_ENV !== 'production') {
     const dotenv = require('dotenv');
     dotenv.config();
 }
 
-openai.apiKey = process.env.OPENAI_API_KEY; 
-const allowedFormats = ['mp3', 'mp4', 'mpeg', 'mpga', 'm4a', 'wav', 'webm', 'm4a'];
-const allowedMimeTypes = ['audio/mp3', 'audio/mp4', 'audio/mpeg', 'audio/mpga', 'audio/m4a', 'audio/wav', 'audio/webm', 'audio/x-m4a'];
+openai.apiKey = process.env.OPENAI_API_KEY;
 const app = express();
 app.use(cors());
-app.use(express.json()); // Add this to parse JSON body requests
-app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
 
-
-// Existing CORS bypass code
 app.get('/', async (req, res) => {
     if (req.query.url) {
         const proxyRes = await axios.get(req.query.url);
@@ -33,9 +27,6 @@ app.get('/', async (req, res) => {
     }
 });
 
-
-
-// Utility function for generating random string (used for the 'state' parameter)
 function generateRandomString(length) {
     var text = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -44,8 +35,6 @@ function generateRandomString(length) {
     }
     return text;
 }
-// const fs = require('fs'); //remember to remove is prod
-// New endpoint to handle transcription
 
 app.post('/transcribe', async (req, res) => {
     console.log('Transcribe endpoint hit');
@@ -142,7 +131,33 @@ app.get('/transcription-updates', (req, res) => {
 });
 
 
+app.post('/process-document', async (req, res) => {
+    try {
+        if (!req.files || Object.keys(req.files).length === 0) {
+            return res.status(400).send('No files were uploaded.');
+        }
 
+        let documentFile = req.files.document;
+        const documentText = documentFile.data.toString('utf8');
+
+        // Use OpenAI to extract fields (this is a basic example, and may need refinement)
+        const fields = ["Name", "Birthdate", "Age", "Life expectancy", "Job", "Gender", "Injury", "Injury date", "Body part", "ICD-10 code"];
+        const extractedData = {};
+
+        for (const field of fields) {
+            // This is a basic way to extract fields and may need refinement based on the document structure
+            const regex = new RegExp(`${field}[:]?\\s*(.*)`, 'i');
+            const match = documentText.match(regex);
+            extractedData[field] = match ? match[1].trim() : "Not Found";
+        }
+
+        res.json(extractedData);
+
+    } catch (error) {
+        console.error("Error in document processing:", error.message);
+        res.status(500).send({ error: 'Failed to process document.', reason: error.message });
+    }
+});
 
 app.listen(5001, () => {
     console.log('Listening on port 5001');
