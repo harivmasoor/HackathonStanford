@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-time Transcription</title>
+    <title>Real-time Transcription and Document Upload</title>
 </head>
 <body>
     <h1>Real-time Transcription</h1>
@@ -12,6 +12,14 @@
 
     <h2>Transcription Result:</h2>
     <pre id="transcriptionResult"></pre>
+
+    <h1>Document Upload</h1>
+
+    <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.txt">
+    <button onclick="processDocument()">Process Document</button>
+
+    <h2>Document Processing Result:</h2>
+    <pre id="documentResult"></pre>
 
     <script>
         let isRecording = false;
@@ -85,7 +93,48 @@
                 alert('Failed to transcribe audio. Please check the console for details.');
             });
         }
+
+        function processDocument() {
+            const documentFileInput = document.getElementById('documentFile');
+            const documentFile = documentFileInput.files[0];
+
+            if (!documentFile) {
+                alert('Please select a document first.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('document', documentFile);
+
+            fetch('http://localhost:5001/process-document', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.headers.get('Content-Type').includes('application/json')) {
+                    return response.json();
+                } else {
+                    return response.text().then(text => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log('Document processed successfully.');
+                    document.getElementById('documentResult').textContent = data.result;
+                } else {
+                    console.error('Error:', data.reason);
+                    alert('Failed to process document. Please check the console for details.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to process document. Please check the console for details.');
+            });
+        }
     </script>
 </body>
 </html>
+
 
