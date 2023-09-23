@@ -1,0 +1,31 @@
+Name
+Brian Armstrong
+
+Birthdate
+2/5/1971
+
+Age
+52 years old
+
+Life expectancy
+26.16
+
+Job
+Warehouse worker
+
+Gender
+Male
+
+Injury
+Fell off a ladder while reaching for a 50lb box
+
+Injury date
+3/12/2023
+
+Body part
+Right knee
+
+ICD-10 code
+M25.561 - Right knee pain
+M17.11 - Osteoarthritis
+Z96.651 - Right artificial knee joint

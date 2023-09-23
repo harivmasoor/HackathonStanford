@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./src/styles/reset.css">
     <link rel="stylesheet" href="./src/styles/global.css">
     <title>Real-time Transcription and Document Upload</title>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 </head>
 <body>
     <h1>Real-time Transcription</h1>
@@ -29,11 +30,20 @@
                 <th>Value</th>
             </tr>
         </thead>
+        <div id="uploadedFileDisplay" style="float: left; margin-right: 20px;"></div>
         <tbody id="documentFields">
             <!-- Rows will be added dynamically here -->
         </tbody>
     </table>
-
+    <div>
+        <a href="https://plotly.com/~DANILS/2/?share_key=LQCqoDqYFmguDyEWHEPO3F" target="_blank" title="Probability of settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/2.png?share_key=LQCqoDqYFmguDyEWHEPO3F" alt="Probability of settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
+        <script data-plotly="DANILS:2" sharekey-plotly="LQCqoDqYFmguDyEWHEPO3F" src="https://plotly.com/embed.js" async></script>
+    </div>    
+    <div>
+        <a href="https://plotly.com/~DANILS/1/?share_key=Ace9f6iMl1viiKoHVfAQhK" target="_blank" title="Claim settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/1.png?share_key=Ace9f6iMl1viiKoHVfAQhK" alt="Claim settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
+        <script data-plotly="DANILS:1" sharekey-plotly="Ace9f6iMl1viiKoHVfAQhK" src="https://plotly.com/embed.js" async></script></div>
+    
+    
     <script>
         let isRecording = false;
         let mediaRecorder;
@@ -106,41 +116,132 @@
                 alert('Failed to transcribe audio. Please check the console for details.');
             });
         }
-
         function processDocument() {
-            const documentFileInput = document.getElementById('documentFile');
-            const documentFile = documentFileInput.files[0];
+    const documentFileInput = document.getElementById('documentFile');
+    const documentFile = documentFileInput.files[0];
 
-            if (!documentFile) {
-                alert('Please select a document first.');
-                return;
-            }
+    if (!documentFile) {
+        alert('Please select a document first.');
+        return;
+    }
 
-            const formData = new FormData();
-            formData.append('document', documentFile);
+    const formData = new FormData();
+    formData.append('document', documentFile);
 
-            fetch('http://localhost:5001/process-document', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('documentFields');
-                tableBody.innerHTML = ''; // Clear previous results
+    fetch('http://localhost:5001/process-document', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        const tableBody = document.getElementById('documentFields');
+        tableBody.innerHTML = ''; // Clear previous results
 
-                for (const field in data) {
-                    const row = tableBody.insertRow();
-                    const cell1 = row.insertCell(0);
-                    const cell2 = row.insertCell(1);
-                    cell1.textContent = field;
-                    cell2.textContent = data[field];
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to process document. Please check the console for details.');
-            });
+        // Sample data from sample.txt
+        const sampleData = {
+            "Name": "Brian Armstrong",
+            "Birthdate": "2/5/1971",
+            "Age": "52 years old",
+            "Life expectancy": "26.16",
+            "Job": "Warehouse worker",
+            "Gender": "Male",
+            "Injury": "Fell off a ladder while reaching for a 50lb box",
+            "Injury date": "3/12/2023",
+            "Body part": "Right knee",
+            "ICD-10 code": "M25.561 - Right knee pain\nM17.11 - Osteoarthritis\nZ96.651 - Right artificial knee joint"
+        };
+
+        for (const field in sampleData) {
+            const row = tableBody.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            cell1.textContent = field;
+            cell2.textContent = sampleData[field];
         }
+
+        // Display the uploaded file
+        const fileDisplay = document.getElementById('uploadedFileDisplay');
+        fileDisplay.innerHTML = ''; // Clear previous display
+
+        if (documentFile.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(documentFile);
+            img.alt = 'Uploaded Image';
+            img.style.maxWidth = '300px'; // Set a max width for the image
+            fileDisplay.appendChild(img);
+        } else if (documentFile.type === 'text/plain') {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const pre = document.createElement('pre');
+                pre.textContent = event.target.result;
+                fileDisplay.appendChild(pre);
+            };
+            reader.readAsText(documentFile);
+        } else if (documentFile.type === 'application/pdf') {
+            // Render the PDF using PDF.js
+            const pdfUrl = URL.createObjectURL(documentFile);
+            const canvas = document.createElement('canvas');
+            fileDisplay.appendChild(canvas);
+
+            pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
+                pdf.getPage(1).then(function(page) {
+                    const viewport = page.getViewport({ scale: 1.0 });
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    const renderContext = {
+                        canvasContext: canvas.getContext('2d'),
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            });
+        } else {
+            const p = document.createElement('p');
+            p.textContent = 'File uploaded: ' + documentFile.name;
+            fileDisplay.appendChild(p);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to process document. Please check the console for details.');
+    });
+}
+
+
+        // function processDocument() {
+        //     const documentFileInput = document.getElementById('documentFile');
+        //     const documentFile = documentFileInput.files[0];
+
+        //     if (!documentFile) {
+        //         alert('Please select a document first.');
+        //         return;
+        //     }
+
+        //     const formData = new FormData();
+        //     formData.append('document', documentFile);
+
+        //     fetch('http://localhost:5001/process-document', {
+        //         method: 'POST',
+        //         body: formData
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         const tableBody = document.getElementById('documentFields');
+        //         tableBody.innerHTML = ''; // Clear previous results
+
+        //         for (const field in data) {
+        //             const row = tableBody.insertRow();
+        //             const cell1 = row.insertCell(0);
+        //             const cell2 = row.insertCell(1);
+        //             cell1.textContent = field;
+        //             cell2.textContent = data[field];
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //         alert('Failed to process document. Please check the console for details.');
+        //     });
+        // }
     </script>
 </body>
 </html>
