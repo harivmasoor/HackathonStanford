@@ -14,27 +14,13 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 openai.apiKey = process.env.OPENAI_API_KEY; 
+const allowedFormats = ['mp3', 'mp4', 'mpeg', 'mpga', 'm4a', 'wav', 'webm', 'm4a'];
+const allowedMimeTypes = ['audio/mp3', 'audio/mp4', 'audio/mpeg', 'audio/mpga', 'audio/m4a', 'audio/wav', 'audio/webm', 'audio/x-m4a'];
 const app = express();
 app.use(cors());
 app.use(express.json()); // Add this to parse JSON body requests
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 app.use(fileUpload());
-// expressWs(app);
-
-// app.ws('/transcription', (ws, req) => {
-//     ws.on('message', (msg) => {
-//         console.log('Received:', msg);
-//         // Based on received message you can decide when and what to send back.
-//         // For now, let's assume any message from frontend triggers sending a sample transcript.
-        
-//         // (You will replace the sample with the real transcript from OpenAI API when you integrate)
-//         ws.send('Sample Transcription: Hello, this is a test.');
-//     });
-
-//     ws.on('close', () => {
-//         console.log('WebSocket closed');
-//     });
-// });
 
 
 // Existing CORS bypass code

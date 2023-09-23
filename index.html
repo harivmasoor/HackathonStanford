@@ -1,16 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcription Test</title>
+</head>
+<body>
+    <h1>Transcription Test</h1>
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./dist/main.css" />
-    <script src="./dist/main.js"></script>
-    <title>Project Name</title>
-  </head>
+    <input type="file" id="audioFile" accept="audio/*">
+    <button onclick="transcribeAudio()">Transcribe</button>
 
-  <body>
-  </body>
+    <h2>Transcription Result:</h2>
+    <pre id="transcriptionResult"></pre>
 
+    <script>
+        // Connect to the transcription updates endpoint using Server-Sent Events
+        const eventSource = new EventSource('http://localhost:5001/transcription-updates');
+
+        eventSource.onmessage = function(event) {
+            const transcription = JSON.parse(event.data);
+            document.getElementById('transcriptionResult').textContent = transcription;
+        };
+
+        function transcribeAudio() {
+    const audioFileInput = document.getElementById('audioFile');
+    const audioFile = audioFileInput.files[0];
+
+    if (!audioFile) {
+        alert('Please select an audio file first.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('audio', audioFile);
+
+    fetch('http://localhost:5001/transcribe', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.headers.get('Content-Type').includes('application/json')) {
+            return response.json();
+        } else {
+            return response.text().then(text => {
+                throw new Error(text);
+            });
+        }
+    })
+    .then(data => {
+        if (data.success) {
+            console.log('Transcription request sent successfully.');
+        } else {
+            console.error('Error:', data.reason);
+            alert('Failed to transcribe audio. Please check the console for details.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to transcribe audio. Please check the console for details.');
+    });
+}
+    </script>
+</body>
 </html>
