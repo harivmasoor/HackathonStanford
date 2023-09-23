@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'inc-sans';
+    src: url('./Inclusive_Sans/InclusiveSans-Regular.ttf');
+}
+@font-face {
+    font-family: 'inc-sans-italic';
+    src: url('./Inclusive_Sans/InclusiveSans-Italic.ttf');
+}
+
+:root {
+    /* --blue: #fe385c; */
+    --light_light_light_grey: #f7f7f7; 
+    --light_light_grey: #EBEBEB; 
+    --light_grey: #dddddd;
+    --dark_grey: #222222;
+    --coal: #282424;
+
+    --shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+    --strong_shadow: rgba(0, 0, 0, 0.22) 0px 6px 16px;
+}
+
+body {
+    font-family: 'inc-sans';
+}
