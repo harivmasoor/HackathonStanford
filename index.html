@@ -5,73 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/styles/reset.css">
     <link rel="stylesheet" href="./src/styles/global.css">
+    <link rel="stylesheet" href="./src/styles/pageOne.css">
     <title>Real-time Transcription and Document Upload</title>
     <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 </head>
 <body>
-    <h1>Real-time Transcription</h1>
 
-    <button id="startStopBtn" onclick="toggleRecording()">Start Recording</button>
+    <div class="page-one">
+   
+        <h1>Real-time Transcription</h1>
 
-    <h2>Transcription Result:</h2>
-    <pre id="transcriptionResult"></pre>
+        <button id="startStopBtn" onclick="toggleRecording()">Start Recording</button>
 
-    <h1>Type Input</h1>
-    <textarea id="typedInput" rows="10" cols="50" placeholder="Type your input here..."></textarea><br>
-    <button onclick="processTypedInput()">Process Typed Input</button>
+        <h2>Transcription Result:</h2>
+        <pre id="transcriptionResult"></pre>
 
-    <h1>Document Upload</h1>
+        <h1>Type Input</h1>
+        <textarea id="typedInput" rows="10" cols="50" placeholder="Type your input here..."></textarea><br>
+        <button onclick="processTypedInput()">Process Typed Input</button>
 
-    <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.txt">
+        <h1>Document Upload</h1>
+
+        <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.txt">
 
 
+        <button onclick="processDocument()">Process Document</button>
+    </div>
 
-    <button onclick="processDocument()">Process Document</button>
+    <div class="page-two hidden">
 
-    <h2>Document Processing Result:</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Field</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <div id="uploadedFileDisplay" style="float: left; margin-right: 20px;"></div>
-        <tbody id="documentFields">
-            <!-- Rows will be added dynamically here -->
-        </tbody>
-    </table>
-    <div style="display: flex; align-items: center;">
-        <!-- Graph -->
+
+        <h2>Document Processing Result:</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <div id="uploadedFileDisplay" style="float: left; margin-right: 20px;"></div>
+            <tbody id="documentFields">
+                <!-- Rows will be added dynamically here -->
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <div class="page-three hidden">
+
+        <div style="display: flex; align-items: center;">
+            <!-- Graph -->
+            <div>
+                <a href="https://plotly.com/~DANILS/2/?share_key=LQCqoDqYFmguDyEWHEPO3F" target="_blank" title="Probability of settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/2.png?share_key=LQCqoDqYFmguDyEWHEPO3F" alt="Probability of settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
+                <script data-plotly="DANILS:2" sharekey-plotly="LQCqoDqYFmguDyEWHEPO3F" src="https://plotly.com/embed.js" async></script>
+            </div>
+        
+            <!-- Lump-sum Settlement Options -->
+            <div style="margin-left: 20px;">
+                <h3>Lump-sum Settlement Options:</h3>
+                <label>
+                    <input type="radio" name="settlement" value="60000">$60k
+                </label><br>
+                <label>
+                    <input type="radio" name="settlement" value="50000">$50k
+                </label><br>
+                <label>
+                    <input type="radio" name="settlement" value="70000">$70k
+                </label><br><br>
+        
+                <!-- Generate Button -->
+                <button id="generateButton">Generate</button>
+            </div>
+        </div>
+        
         <div>
-            <a href="https://plotly.com/~DANILS/2/?share_key=LQCqoDqYFmguDyEWHEPO3F" target="_blank" title="Probability of settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/2.png?share_key=LQCqoDqYFmguDyEWHEPO3F" alt="Probability of settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-            <script data-plotly="DANILS:2" sharekey-plotly="LQCqoDqYFmguDyEWHEPO3F" src="https://plotly.com/embed.js" async></script>
+            <a href="https://plotly.com/~DANILS/1/?share_key=Ace9f6iMl1viiKoHVfAQhK" target="_blank" title="Claim settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/1.png?share_key=Ace9f6iMl1viiKoHVfAQhK" alt="Claim settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
+            <script data-plotly="DANILS:1" sharekey-plotly="Ace9f6iMl1viiKoHVfAQhK" src="https://plotly.com/embed.js" async></script>
         </div>
-    
-        <!-- Lump-sum Settlement Options -->
-        <div style="margin-left: 20px;">
-            <h3>Lump-sum Settlement Options:</h3>
-            <label>
-                <input type="radio" name="settlement" value="60000">$60k
-            </label><br>
-            <label>
-                <input type="radio" name="settlement" value="50000">$50k
-            </label><br>
-            <label>
-                <input type="radio" name="settlement" value="70000">$70k
-            </label><br><br>
-    
-            <!-- Generate Button -->
-            <button id="generateButton">Generate</button>
-        </div>
-    </div>
-    
-    <div>
-        <a href="https://plotly.com/~DANILS/1/?share_key=Ace9f6iMl1viiKoHVfAQhK" target="_blank" title="Claim settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/1.png?share_key=Ace9f6iMl1viiKoHVfAQhK" alt="Claim settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-        <script data-plotly="DANILS:1" sharekey-plotly="Ace9f6iMl1viiKoHVfAQhK" src="https://plotly.com/embed.js" async></script>
-    </div>
 
-    <!-- Link to the external JavaScript file -->
-    <script src="script.js"></script>
+        <!-- Link to the external JavaScript file -->
+        <script src="script.js"></script>
+
+
+    </div>
 </body>
 </html>

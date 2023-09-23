@@ -76,3 +76,7 @@ input {
 input:hover {
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}
