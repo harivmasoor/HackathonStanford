@@ -14,6 +14,10 @@
     <h2>Transcription Result:</h2>
     <pre id="transcriptionResult"></pre>
 
+    <h1>Type Input</h1>
+<textarea id="typedInput" rows="10" cols="50" placeholder="Type your input here..."></textarea><br>
+<button onclick="processTypedInput()">Process Typed Input</button>
+
     <h1>Document Upload</h1>
 
     <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.txt">
@@ -32,10 +36,46 @@
             <!-- Rows will be added dynamically here -->
         </tbody>
     </table>
-    <div>
-        <a href="https://plotly.com/~DANILS/2/?share_key=LQCqoDqYFmguDyEWHEPO3F" target="_blank" title="Probability of settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/2.png?share_key=LQCqoDqYFmguDyEWHEPO3F" alt="Probability of settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-        <script data-plotly="DANILS:2" sharekey-plotly="LQCqoDqYFmguDyEWHEPO3F" src="https://plotly.com/embed.js" async></script>
-    </div>    
+    <div style="display: flex; align-items: center;">
+        <!-- Graph -->
+        <div>
+            <a href="https://plotly.com/~DANILS/2/?share_key=LQCqoDqYFmguDyEWHEPO3F" target="_blank" title="Probability of settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/2.png?share_key=LQCqoDqYFmguDyEWHEPO3F" alt="Probability of settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
+            <script data-plotly="DANILS:2" sharekey-plotly="LQCqoDqYFmguDyEWHEPO3F" src="https://plotly.com/embed.js" async></script>
+        </div>
+    
+        <!-- Lump-sum Settlement Options -->
+        <div style="margin-left: 20px;">
+            <h3>Lump-sum Settlement Options:</h3>
+            <label>
+                <input type="radio" name="settlement" value="60000">$60k
+            </label><br>
+            <label>
+                <input type="radio" name="settlement" value="50000">$50k
+            </label><br>
+            <label>
+                <input type="radio" name="settlement" value="70000">$70k
+            </label><br><br>
+    
+            <!-- Generate Button -->
+            <button id="generateButton">Generate</button>
+        </div>
+    </div>
+    
+    <script>
+        // JavaScript to handle the "Generate" button click
+        document.getElementById('generateButton').addEventListener('click', function() {
+            const selectedOption = document.querySelector('input[name="settlement"]:checked');
+            if (selectedOption) {
+                // Retrieve the selected value
+                const selectedValue = selectedOption.value;
+                console.log("Selected Lump-sum Settlement Option:", selectedValue);
+    
+                // TODO: Add any desired action here
+            } else {
+                alert("Please select a lump-sum settlement option before generating.");
+            }
+        });
+    </script>
     <div>
         <a href="https://plotly.com/~DANILS/1/?share_key=Ace9f6iMl1viiKoHVfAQhK" target="_blank" title="Claim settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/1.png?share_key=Ace9f6iMl1viiKoHVfAQhK" alt="Claim settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
         <script data-plotly="DANILS:1" sharekey-plotly="Ace9f6iMl1viiKoHVfAQhK" src="https://plotly.com/embed.js" async></script></div>
