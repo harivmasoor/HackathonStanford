@@ -69,8 +69,14 @@
                 // Retrieve the selected value
                 const selectedValue = selectedOption.value;
                 console.log("Selected Lump-sum Settlement Option:", selectedValue);
-    
-                // TODO: Add any desired action here
+  
+                // Creating a file link
+                var fileURL = "https://drive.google.com/file/d/1KbZlsODYKF5GCySadULRyrJs4dZGM_jN/view?usp=drive_link";
+                window.location.href = fileURL;
+
+                // Add the link to the document
+                document.body.appendChild(a);
+                
             } else {
                 alert("Please select a lump-sum settlement option before generating.");
             }
