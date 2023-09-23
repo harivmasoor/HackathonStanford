@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transcription Test</title>
+    <title>Real-time Transcription</title>
 </head>
 <body>
-    <h1>Transcription Test</h1>
+    <h1>Real-time Transcription</h1>
 
-    <input type="file" id="audioFile" accept="audio/*">
-    <button onclick="transcribeAudio()">Transcribe</button>
+    <button id="startStopBtn" onclick="toggleRecording()">Start Recording</button>
 
     <h2>Transcription Result:</h2>
     <pre id="transcriptionResult"></pre>
 
     <script>
+        let isRecording = false;
+        let mediaRecorder;
+        const audioChunks = [];
+
         // Connect to the transcription updates endpoint using Server-Sent Events
         const eventSource = new EventSource('http://localhost:5001/transcription-updates');
 
@@ -23,44 +26,66 @@
             document.getElementById('transcriptionResult').textContent = transcription;
         };
 
-        function transcribeAudio() {
-    const audioFileInput = document.getElementById('audioFile');
-    const audioFile = audioFileInput.files[0];
+        async function toggleRecording() {
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        }
 
-    if (!audioFile) {
-        alert('Please select an audio file first.');
-        return;
-    }
+        async function startRecording() {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+                if (mediaRecorder.state === "inactive") {
+                    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+                    sendAudioToServer(audioBlob);
+                }
+            };
+            mediaRecorder.start();
+            isRecording = true;
+            document.getElementById('startStopBtn').textContent = "Stop Recording";
+        }
 
-    const formData = new FormData();
-    formData.append('audio', audioFile);
+        function stopRecording() {
+            mediaRecorder.stop();
+            isRecording = false;
+            document.getElementById('startStopBtn').textContent = "Start Recording";
+        }
 
-    fetch('http://localhost:5001/transcribe', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        if (response.headers.get('Content-Type').includes('application/json')) {
-            return response.json();
-        } else {
-            return response.text().then(text => {
-                throw new Error(text);
+        function sendAudioToServer(audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob);
+
+            fetch('http://localhost:5001/transcribe', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.headers.get('Content-Type').includes('application/json')) {
+                    return response.json();
+                } else {
+                    return response.text().then(text => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log('Transcription request sent successfully.');
+                } else {
+                    console.error('Error:', data.reason);
+                    alert('Failed to transcribe audio. Please check the console for details.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to transcribe audio. Please check the console for details.');
             });
         }
-    })
-    .then(data => {
-        if (data.success) {
-            console.log('Transcription request sent successfully.');
-        } else {
-            console.error('Error:', data.reason);
-            alert('Failed to transcribe audio. Please check the console for details.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to transcribe audio. Please check the console for details.');
-    });
-}
     </script>
 </body>
 </html>
+
