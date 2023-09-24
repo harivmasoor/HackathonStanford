@@ -68,34 +68,39 @@
 
     <div class="page-three hidden">
 
-        <div style="display: flex; align-items: center;">
-            <!-- Graph -->
-            <div>
-                <a href="https://plotly.com/~DANILS/2/?share_key=LQCqoDqYFmguDyEWHEPO3F" target="_blank" title="Probability of settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/2.png?share_key=LQCqoDqYFmguDyEWHEPO3F" alt="Probability of settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-                <script data-plotly="DANILS:2" sharekey-plotly="LQCqoDqYFmguDyEWHEPO3F" src="https://plotly.com/embed.js" async></script>
-            </div>
-        
-            <!-- Lump-sum Settlement Options -->
-            <div style="margin-left: 20px;">
-                <h3>Lump-sum Settlement Options:</h3>
-                <label>
-                    <input type="radio" name="settlement" value="60000">$60k
-                </label><br>
-                <label>
-                    <input type="radio" name="settlement" value="50000">$50k
-                </label><br>
-                <label>
-                    <input type="radio" name="settlement" value="70000">$70k
-                </label><br><br>
-        
-                <!-- Generate Button -->
-                <button id="generateButton">Generate</button>
-            </div>
-        </div>
-        
+
+        <div style="display: flex; align-items: left;">
+        <!-- Graph -->
+        <div class="page-three-layout">
+        <!-- <h3>Here are the compensation data from the community</h3> -->
+        <div class="page-three-left">
         <div>
-            <a href="https://plotly.com/~DANILS/1/?share_key=Ace9f6iMl1viiKoHVfAQhK" target="_blank" title="Claim settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/1.png?share_key=Ace9f6iMl1viiKoHVfAQhK" alt="Claim settlement" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-            <script data-plotly="DANILS:1" sharekey-plotly="Ace9f6iMl1viiKoHVfAQhK" src="https://plotly.com/embed.js" async></script>
+        <a href="https://plotly.com/~DANILS/2/?share_key=LQCqoDqYFmguDyEWHEPO3F" target="_blank" title="Probability of settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/2.png?share_key=LQCqoDqYFmguDyEWHEPO3F" alt="Probability of settlement" style="max-width: 100%;width: 600px;" width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
+        <script data-plotly="DANILS:2" sharekey-plotly="LQCqoDqYFmguDyEWHEPO3F" src="https://plotly.com/embed.js" async></script>
+        </div>
+        <div>
+        <a href="https://plotly.com/~DANILS/1/?share_key=Ace9f6iMl1viiKoHVfAQhK" target="_blank" title="Claim settlement" style="display: block; text-align: center;"><img src="https://plotly.com/~DANILS/1.png?share_key=Ace9f6iMl1viiKoHVfAQhK" alt="Claim settlement" style="max-width: 100%;width: 600px;" width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
+        <script data-plotly="DANILS:1" sharekey-plotly="Ace9f6iMl1viiKoHVfAQhK" src="https://plotly.com/embed.js" async></script>
+        </div>
+        </div>
+        <div class="page-three-right">
+        <!-- Lump-sum Settlement Options -->
+        <div>
+        <h3>From our algorithm, there are three settlement options:</h3>
+        <label>
+        <input type="radio" name="settlement" value="60000">$72,661, with 85% Probability
+        </label><br>
+        <label>
+        <input type="radio" name="settlement" value="50000">$58,900, with 90% Probability
+        </label><br>
+        <label>
+        <input type="radio" name="settlement" value="70000">$80,500, with 50% Probability
+        </label><br><br>
+        <!-- Generate Button -->
+        <button id="generateButton">Generate</button>
+        </div>
+        </div>
+        </div>
         </div>
 
         <!-- Link to the external JavaScript file -->
