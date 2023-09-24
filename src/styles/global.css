@@ -87,3 +87,14 @@ textarea {
     width: 100%;
     text-align: start;
 }
+
+
+.permanent-logo {
+    position: absolute;
+    left: 5vw;
+    top: 5vh;
+}
+
+.permanent-logo img {
+    width: 5rem;
+}
