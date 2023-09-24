@@ -85,11 +85,3 @@ input:hover {
 textarea {
     width: 100%;
 }
-
-.title-page-one {
-    height: 20rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}

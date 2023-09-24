@@ -15,24 +15,27 @@
    
         <div class="title-page-one">
             <h1>Blue Claim</h1>
-            <h1>Tell us what happened</h1>
+            <!-- <h1>Tell us what happened</h1> -->
+        </div>        
+
+        <div id="search" class="tell-us-input">
+            <form id="s-bar" action="" class="type-bar">
+                <!-- <input type="text" placeholder="Tell us what happened"> -->
+                <textarea id="typedInput" rows="10" cols="50" placeholder="Tell us what happened"></textarea>
+                <button>
+                    <!-- <img src="./assets/search.png" alt=""> -->
+                </button>
+            </form>
         </div>
 
-        <div class="tell-us-input">
-
+        <div class="upload">
+            <h1>Submit a file</h1>
+            <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.txt">
         </div>
 
-        <!-- <div class="container">
-            <h1 id="main-heading">Convert Video to Text with AI</h1>
-            <div id="search" class="youtube-search">
-                <form id="s-bar" action="" class="search-bar">
-                    <input type="text" placeholder="Enter a youtube link" name="q">
-                    <button><img src="./assets/search.png" alt=""></button>
-                </form>
-            </div>
-        </div> -->
+       
 
-
+<!-- 
         <div class="boxes">
         
             <div class="record">
@@ -53,11 +56,11 @@
                 <button onclick="processTypedInput()">Process Typed Input</button>
             </div>
 
-        </div>
+        </div> -->
 
       
 
-        <button onclick="processDocument()">Process Document</button>
+        <button  class="proccess-doc" onclick="processDocument()">Process Document</button>
     </div>
 
     <div class="page-two hidden">
