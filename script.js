@@ -187,4 +187,6 @@ function processDocument() {
         console.error('Error:', error);
         alert('Failed to process document. Please check the console for details.');
     });
+    document.querySelector('.page-two table').style.display = 'block';
+    document.getElementById('uploadedFileDisplay').style.display = 'block';
 }

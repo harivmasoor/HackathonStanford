@@ -43,3 +43,13 @@ table th, table td {
 .confirm-button:hover {
     background-color: #0056b3;
 }
+
+/* Hide the table initially */
+.page-two table {
+    display: none;
+}
+
+/* Hide the upload file display initially */
+#uploadedFileDisplay {
+    display: none;
+}
