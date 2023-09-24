@@ -1,0 +1,45 @@
+/* PageTwo.css */
+
+.page-two {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+#uploadedFileDisplay {
+    flex: 1;
+    max-width: 45%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow: auto;
+}
+
+table {
+    flex: 1;
+    max-width: 45%;
+    border-collapse: collapse;
+    margin-left: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.confirm-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.confirm-button:hover {
+    background-color: #0056b3;
+}
