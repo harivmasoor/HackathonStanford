@@ -42,7 +42,7 @@ processDoc.addEventListener('click', () => {
     pageTwo.classList.remove('hidden');
 });
 
-document.getElementById('confirm-info').addEventListener('click', () => {
+document.getElementById('confirm-button').addEventListener('click', () => {
     
     const pageTwo = document.getElementsByClassName('page-two')[0];
     pageTwo.classList.add('hidden');
