@@ -21,9 +21,10 @@
         <div id="search" class="tell-us-input">
             <form id="s-bar" action="" class="type-bar">
                 <!-- <input type="text" placeholder="Tell us what happened"> -->
-                <textarea id="typedInput" rows="10" cols="50" placeholder="Tell us what happened"></textarea>
-                <button>
-                    <!-- <img src="./assets/search.png" alt=""> -->
+                <textarea id="typedInput" rows="10" cols="50" placeholder="Tell us what happened">
+                </textarea>
+                <button id="startStopBtn" onclick="toggleRecording()">
+                    <img src="./assets/mic.png" alt="">
                 </button>
             </form>
         </div>
@@ -35,32 +36,7 @@
 
        
 
-<!-- 
-        <div class="boxes">
-        
-            <div class="record">
-                <button id="startStopBtn" onclick="toggleRecording()">Start Recording</button>
-                <h2>Transcription Result:</h2>
-                <pre id="transcriptionResult"></pre>
-            </div>
-            
-
-            <div class="upload">
-                <h1>Document Upload</h1>
-                <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.txt">
-            </div>
-
-            <div class="type">
-                <h1>Type Input</h1>
-                <textarea id="typedInput" rows="10" cols="50" placeholder="Type your input here..."></textarea><br>
-                <button onclick="processTypedInput()">Process Typed Input</button>
-            </div>
-
-        </div> -->
-
-      
-
-        <button  class="proccess-doc" onclick="processDocument()">Process Document</button>
+        <button  id="proccess-doc" class="proccess-doc" onclick="processDocument()">Process Document</button>
     </div>
 
     <div class="page-two hidden">

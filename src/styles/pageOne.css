@@ -40,8 +40,8 @@
     box-shadow: var(--shadow);
 }
 
-#documentFile {
-    background-color: none;
+#documentFile * {
+    background-color: white;
     border: 1px solid #cccc;
 }
 
@@ -69,22 +69,30 @@
     outline: none;
     padding: 10px 20px;
     font-size: 20px;
-    color: grey
+    color: var(--coal);
 }
 /* .type-
  */
 ::placeholder {
-    color: grey;
+    /* color: grey; */
+    /* color: var(--coal); */
+    color: black;
 }
 .type-bar button img{
-    width: 25px;
+    /* width: 25px; */
+    width: 50px;
 }
 .type-bar button {
     border: 0px;
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    background: #58629b;
+    /* background: #58629b; */
+    background-color: var(--light-blue);
     cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 

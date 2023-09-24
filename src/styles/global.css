@@ -79,7 +79,8 @@ input:hover {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
+    visibility: none !important;
 }
 
 textarea {

@@ -21,7 +21,7 @@ const eventSource = new EventSource('http://localhost:5001/transcription-updates
 
 eventSource.onmessage = function(event) {
     const transcription = JSON.parse(event.data);
-    document.getElementById('transcriptionResult').textContent = transcription;
+    document.getElementById('typedInput').textContent = transcription;
 };
 
 async function toggleRecording() {
@@ -31,6 +31,20 @@ async function toggleRecording() {
         startRecording();
     }
 }
+
+
+const processDoc = document.getElementById('proccess-doc');
+processDoc.addEventListener('click', () => {
+    const pageOne = document.getElementsByClassName('page-one')[0];
+    pageOne.classList.add('hidden');
+
+    const pageTwo = document.getElementsByClassName('page-two')[0];
+    pageTwo.classList.remove('hidden');
+});
+
+
+
+
 
 async function startRecording() {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
