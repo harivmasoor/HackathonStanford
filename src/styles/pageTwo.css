@@ -53,3 +53,7 @@ table th, table td {
 #uploadedFileDisplay {
     display: none;
 }
+
+.confirm-button{
+    display: none;
+}

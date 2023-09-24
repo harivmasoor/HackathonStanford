@@ -189,4 +189,5 @@ function processDocument() {
     });
     document.querySelector('.page-two table').style.display = 'block';
     document.getElementById('uploadedFileDisplay').style.display = 'block';
+    document.querySelector('.confirm-button').style.display = 'block';
 }
