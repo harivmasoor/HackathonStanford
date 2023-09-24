@@ -85,4 +85,5 @@ input:hover {
 
 textarea {
     width: 100%;
+    text-align: start;
 }
