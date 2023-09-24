@@ -42,6 +42,16 @@ processDoc.addEventListener('click', () => {
     pageTwo.classList.remove('hidden');
 });
 
+document.getElementById('confirm-info').addEventListener('click', () => {
+    
+    const pageTwo = document.getElementsByClassName('page-two')[0];
+    pageTwo.classList.add('hidden');
+
+    const pageThree = document.getElementsByClassName('page-three')[0];
+    pageThree.classList.remove('hidden');
+});
+
+
 
 
 
