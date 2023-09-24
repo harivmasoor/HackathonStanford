@@ -40,6 +40,11 @@
     box-shadow: var(--shadow);
 }
 
+#documentFile {
+    background-color: none;
+    border: 1px solid #cccc;
+}
+
 
 
 .tell-us-input {
