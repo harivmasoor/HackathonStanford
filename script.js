@@ -6,7 +6,8 @@ document.getElementById('generateButton').addEventListener('click', function() {
         const selectedValue = selectedOption.value;
         console.log("Selected Lump-sum Settlement Option:", selectedValue);
 
-        // TODO: Add any desired action here
+        var fileURL = "https://drive.google.com/file/d/1KbZlsODYKF5GCySadULRyrJs4dZGM_jN/view?usp=drive_link"; // Replace this with your file's URL
+        window.location.href = fileURL;
     } else {
         alert("Please select a lump-sum settlement option before generating.");
     }
