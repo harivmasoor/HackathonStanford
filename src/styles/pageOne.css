@@ -1,0 +1,24 @@
+.page-one {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 10rem;
+}
+
+.boxes {
+    display: flex;
+    justify-content: space-between;
+}
+
+.record, 
+.upload,
+.type {
+    width: 25%;
+    border: 1px solid #cccc;
+    padding: 2rem;
+    border-radius: 0.4em;
+    background-color: var(--lighter-blue);
+    box-shadow: var(--shadow);
+}

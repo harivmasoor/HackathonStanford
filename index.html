@@ -13,21 +13,49 @@
 
     <div class="page-one">
    
-        <h1>Real-time Transcription</h1>
+        <div class="title-page-one">
+            <h1>Blue Claim</h1>
+            <h1>Tell us what happened</h1>
+        </div>
 
-        <button id="startStopBtn" onclick="toggleRecording()">Start Recording</button>
+        <div class="tell-us-input">
 
-        <h2>Transcription Result:</h2>
-        <pre id="transcriptionResult"></pre>
+        </div>
 
-        <h1>Type Input</h1>
-        <textarea id="typedInput" rows="10" cols="50" placeholder="Type your input here..."></textarea><br>
-        <button onclick="processTypedInput()">Process Typed Input</button>
+        <!-- <div class="container">
+            <h1 id="main-heading">Convert Video to Text with AI</h1>
+            <div id="search" class="youtube-search">
+                <form id="s-bar" action="" class="search-bar">
+                    <input type="text" placeholder="Enter a youtube link" name="q">
+                    <button><img src="./assets/search.png" alt=""></button>
+                </form>
+            </div>
+        </div> -->
 
-        <h1>Document Upload</h1>
 
-        <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.txt">
+        <div class="boxes">
+        
+            <div class="record">
+                <button id="startStopBtn" onclick="toggleRecording()">Start Recording</button>
+                <h2>Transcription Result:</h2>
+                <pre id="transcriptionResult"></pre>
+            </div>
+            
 
+            <div class="upload">
+                <h1>Document Upload</h1>
+                <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.txt">
+            </div>
+
+            <div class="type">
+                <h1>Type Input</h1>
+                <textarea id="typedInput" rows="10" cols="50" placeholder="Type your input here..."></textarea><br>
+                <button onclick="processTypedInput()">Process Typed Input</button>
+            </div>
+
+        </div>
+
+      
 
         <button onclick="processDocument()">Process Document</button>
     </div>

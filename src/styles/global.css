@@ -11,6 +11,7 @@
 
     --blue: #004aad;
     --light-blue: rgba(0, 74, 173, 0.5);
+    --lighter-blue: rgba(0, 74, 173, 0.1);
     --orange: #F6861E;
     --light-orange: rgba(246, 134, 30, 0.5);
 
@@ -79,4 +80,16 @@ input:hover {
 
 .hidden {
     display: none;
+}
+
+textarea {
+    width: 100%;
+}
+
+.title-page-one {
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
